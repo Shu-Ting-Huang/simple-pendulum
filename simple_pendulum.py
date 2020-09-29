@@ -7,7 +7,7 @@ root.state('zoomed') #maximize the window
 
 w = 1250
 h = 600
-time_step=5
+time_step=1
 
 (x0,y0) = (w//2,h//2)
 L=200
