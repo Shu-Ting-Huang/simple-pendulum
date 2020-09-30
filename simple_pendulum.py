@@ -21,7 +21,7 @@ if oscillating == True:
     f=(lambda theta: 2*sqrt(2/c)/sqrt(cos(theta)-cos(theta_max)) )
     period = quad(f,0,theta_max)[0]
     #solve the ODE in one period
-    t = linspace(0,period,2000,endpoint=False)
+    t = linspace(0,period,int(period*1000/time_step),endpoint=False) # period*1000/time_step counts how many timesteps
     pend_ode = (lambda y,t: [y[1],-c*sin(y[0])])
     ode_sol = odeint(pend_ode,[theta0,omega0], t)
 
