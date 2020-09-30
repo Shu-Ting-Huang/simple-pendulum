@@ -25,6 +25,8 @@ if oscillating == True:
     pend_ode = (lambda y,t: [y[1],-c*sin(y[0])])
     ode_sol = odeint(pend_ode,[theta0,omega0], t)
 
+    theta_test = linspace(0,0.001*pi,len(t),endpoint=False)
+
 (x0,y0) = (w//2,h//2)
 L=200
 r=15
@@ -51,8 +53,8 @@ class Pendulum:
     def update_data(self):
         self.time_ind += 1
         self.time_ind %= len(t)
-        self.theta += ode_sol[self.time_ind][0]
-        self.omega += ode_sol[self.time_ind][1]
+        self.theta += theta_test[self.time_ind]
+        #self.omega += ode_sol[self.time_ind][1]
 
     def activate_motion(self):
         self.update_data()
@@ -64,8 +66,7 @@ root.mainloop()
 
 import matplotlib.pyplot as plt
 
-plt.plot(t, ode_sol[:, 0], 'b', label='theta(t)')
-plt.plot(t, ode_sol[:, 1], 'g', label='omega(t)')
+plt.plot(t, theta_test[:], 'b', label='theta_test(t)')
 plt.legend(loc='best')
 plt.xlabel('t')
 plt.grid()
