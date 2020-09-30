@@ -61,3 +61,12 @@ class Pendulum:
     
 pendulum = Pendulum()
 root.mainloop()
+
+import matplotlib.pyplot as plt
+
+plt.plot(t, ode_sol[:, 0], 'b', label='theta(t)')
+plt.plot(t, ode_sol[:, 1], 'g', label='omega(t)')
+plt.legend(loc='best')
+plt.xlabel('t')
+plt.grid()
+plt.show()
