@@ -12,7 +12,7 @@ h = 600
 time_step=1
 
 c = 1 #This constant is g/L
-(theta0,omega0) = (0,-0.5) #Initial condition
+(theta0,omega0) = (0.001,-0.0) #Initial condition
 E = omega0**2-2*c*cos(theta0) #Total energy (omit the constant (1/2)*m*L^2)
 oscillating = (E-2*c < -0.01)
 if oscillating == True:
@@ -36,6 +36,7 @@ class Pendulum:
     def __init__(self,theta=theta0,omega=omega0):
         self.theta = theta
         self.omega = omega
+        self.time_ind = 0 # The current time should be t[self.time_ind]
         position = (x0+L*sin(self.theta),y0+L*cos(self.theta))
         self.rod = my_canvas.create_line(x0,y0,position[0],position[1],width=2)
         self.bob = my_canvas.create_oval(position[0]-r,position[1]-r,\
@@ -48,7 +49,10 @@ class Pendulum:
         my_canvas.coords(self.bob,position[0]-r,position[1]-r,position[0]+r,position[1]+r)
 
     def update_data(self):
-        self.theta += self.omega*time_step/1000
+        self.time_ind += 1
+        self.time_ind %= len(t)
+        self.theta += ode_sol[self.time_ind][0]
+        self.omega += ode_sol[self.time_ind][1]
 
     def activate_motion(self):
         self.update_data()
