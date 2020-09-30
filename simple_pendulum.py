@@ -18,15 +18,15 @@ my_canvas = Canvas(root,width=w,height=h,bg="white")
 my_canvas.pack(pady=10)
 
 class Pendulum:
-    def __init__(self,theta=0,omega=-0.5):
+    def __init__(self,theta=-pi/4,omega=-0.5):
         self.theta = theta
         self.omega = omega
         position = (x0+L*sin(self.theta),y0+L*cos(self.theta))
         self.rod = my_canvas.create_line(x0,y0,position[0],position[1],width=2)
-        global brown_img
+        global img,img_rotated
         img = Image.open("brown.png").resize((120,120),Image.ANTIALIAS)
-        brown_img = ImageTk.PhotoImage(img) 
-        self.bob = my_canvas.create_image(position[0],position[1],image=brown_img)
+        img_rotated = ImageTk.PhotoImage(img.rotate(self.theta*(180/pi)))
+        self.bob = my_canvas.create_image(position[0],position[1],image=img_rotated)
         self.activate_motion()
 
     def redraw(self):
