@@ -17,7 +17,7 @@ my_canvas = Canvas(root,width=w,height=h,bg="white")
 my_canvas.pack(pady=10)
 
 class Pendulum:
-    def __init__(self,theta=0,omega=-1):
+    def __init__(self,theta=0,omega=-0.5):
         self.theta = theta
         self.omega = omega
         position = (x0+L*sin(self.theta),y0+L*cos(self.theta))
