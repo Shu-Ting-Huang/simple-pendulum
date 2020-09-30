@@ -1,5 +1,6 @@
-from tkinter import Tk,Canvas
+from tkinter import Tk,Canvas,PhotoImage
 from math import cos,sin,pi
+from PIL import Image,ImageTk
 root = Tk()
 root.title('Simple Pendulum')
 #root.geometry("800x1080")
@@ -22,14 +23,16 @@ class Pendulum:
         self.omega = omega
         position = (x0+L*sin(self.theta),y0+L*cos(self.theta))
         self.rod = my_canvas.create_line(x0,y0,position[0],position[1],width=2)
-        self.bob = my_canvas.create_oval(position[0]-r,position[1]-r,\
-                                            position[0]+r,position[1]+r,fill="red")
+        global brown_img
+        img = Image.open("brown.png").resize((120,120),Image.ANTIALIAS)
+        brown_img = ImageTk.PhotoImage(img) 
+        self.bob = my_canvas.create_image(position[0],position[1],image=brown_img)
         self.activate_motion()
 
     def redraw(self):
         position = (x0+L*sin(self.theta),y0+L*cos(self.theta))
         my_canvas.coords(self.rod,x0,y0,position[0],position[1])
-        my_canvas.coords(self.bob,position[0]-r,position[1]-r,position[0]+r,position[1]+r)
+        my_canvas.coords(self.bob,position[0],position[1])
 
     def update_data(self):
         self.theta += self.omega*time_step/1000
