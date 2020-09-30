@@ -1,5 +1,6 @@
 from tkinter import Tk,Canvas
-from math import cos,sin,pi
+from math import cos,sin,acos,pi,sqrt
+from scipy.integrate import quad
 root = Tk()
 root.title('Simple Pendulum')
 #root.geometry("800x1080")
@@ -13,6 +14,11 @@ c = 1 #This constant is g/L
 (theta0,omega0) = (0,-0.5) #Initial condition
 E = omega0**2-2*c*cos(theta0) #Total energy (omit the constant (1/2)*m*L^2)
 periodic = (E-2*c < -0.01)
+if periodic == True:
+    #Find the period here
+    theta_max = acos( cos(theta0)-(omega0**2)/(2*c) )
+    f=(lambda theta: 2*sqrt(2/c)/sqrt(cos(theta)-cos(theta_max)))
+    period = quad(f,0,theta_max)[0]
 
 (x0,y0) = (w//2,h//2)
 L=200
