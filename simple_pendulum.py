@@ -9,6 +9,11 @@ w = 1250
 h = 600
 time_step=1
 
+c = 1 #This constant is g/L
+(theta0,omega0) = (0,-0.5) #Initial condition
+E = omega0**2-2*c*cos(theta0) #Total energy (omit the constant (1/2)*m*L^2)
+periodic = (E-2*c < -0.01)
+
 (x0,y0) = (w//2,h//2)
 L=200
 r=15
@@ -17,7 +22,7 @@ my_canvas = Canvas(root,width=w,height=h,bg="white")
 my_canvas.pack(pady=10)
 
 class Pendulum:
-    def __init__(self,theta=0,omega=-0.5):
+    def __init__(self,theta=theta0,omega=omega0):
         self.theta = theta
         self.omega = omega
         position = (x0+L*sin(self.theta),y0+L*cos(self.theta))
