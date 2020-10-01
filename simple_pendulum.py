@@ -12,7 +12,7 @@ h = 600
 time_step=1
 
 c = 1 #This constant is g/L
-(theta0,omega0) = (0.001,-0.0) #Initial condition
+(theta0,omega0) = (pi/4,-0.0) #Initial condition
 E = omega0**2-2*c*cos(theta0) #Total energy (omit the constant (1/2)*m*L^2)
 oscillating = (E-2*c < -0.01)
 if oscillating == True:
@@ -51,8 +51,8 @@ class Pendulum:
     def update_data(self):
         self.time_ind += 1
         self.time_ind %= len(t)
-        self.theta += ode_sol[self.time_ind][0]
-        self.omega += ode_sol[self.time_ind][1]
+        self.theta = ode_sol[self.time_ind][0]
+        self.omega = ode_sol[self.time_ind][1]
 
     def activate_motion(self):
         self.update_data()
