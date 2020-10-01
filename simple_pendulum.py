@@ -18,16 +18,18 @@ class Pendulum:
         self.omega = omega
         position = (x0+L*sin(self.theta),y0+L*cos(self.theta))
         self.rod = self.canvas.create_line(x0,y0,position[0],position[1],width=2)
-        global img,img_rotated
+        global img
         img = Image.open("brown.png").resize((120,120),Image.ANTIALIAS)
-        img_rotated = ImageTk.PhotoImage(img.rotate(self.theta*(180/pi)))
-        self.bob = self.canvas.create_image(position[0],position[1],image=img_rotated)
+        self.img_rotated = ImageTk.PhotoImage(img.rotate(self.theta*(180/pi)))
+        self.bob = self.canvas.create_image(position[0],position[1],image=self.img_rotated)
         self.activate_motion()
 
     def redraw(self):
         position = (x0+L*sin(self.theta),y0+L*cos(self.theta))
         self.canvas.coords(self.rod,x0,y0,position[0],position[1])
         self.canvas.coords(self.bob,position[0],position[1])
+        self.img_rotated = ImageTk.PhotoImage(img.rotate(self.theta*(180/pi)))
+        self.canvas.itemconfig(self.bob,image=self.img_rotated)
 
     def update_data(self):
         self.theta += self.omega*time_step/1000
