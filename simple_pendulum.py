@@ -1,7 +1,8 @@
-from tkinter import Tk,Canvas
+from tkinter import Tk,Canvas,Label
 from math import cos,sin,acos,pi,sqrt
 from scipy.integrate import quad,odeint
 from numpy import linspace
+from decimal import Decimal
 root = Tk()
 root.title('Simple Pendulum')
 #root.geometry("800x1080")
@@ -32,7 +33,7 @@ L=200
 r=15
 
 my_canvas = Canvas(root,width=w,height=h,bg="white")
-my_canvas.pack(pady=10)
+my_canvas.pack()
 
 class Pendulum:
     def __init__(self,theta=theta0,omega=omega0):
@@ -49,6 +50,7 @@ class Pendulum:
         position = (x0+L*sin(self.theta),y0+L*cos(self.theta))
         my_canvas.coords(self.rod,x0,y0,position[0],position[1])
         my_canvas.coords(self.bob,position[0]-r,position[1]-r,position[0]+r,position[1]+r)
+        my_label.config(text="theta="+str(Decimal(self.theta).quantize(Decimal("1.000"))))
 
     def update_data(self):
         self.time_ind += 1
@@ -61,6 +63,10 @@ class Pendulum:
         self.redraw()
         root.after(time_step,self.activate_motion)
     
+
+my_label = Label(root,text="This is my label")
+my_label.pack(pady=20)
+
 pendulum = Pendulum()
 root.mainloop()
 
