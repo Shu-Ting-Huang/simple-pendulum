@@ -11,7 +11,7 @@ w = 1250
 h = 600
 time_step=1
 
-c = 1 #This constant is g/L
+c = 4 #This constant is g/L
 (theta0,omega0) = (pi/4,-0.0) #Initial condition
 E = omega0**2-2*c*cos(theta0) #Total energy (omit the constant (1/2)*m*L^2)
 oscillating = (E-2*c < -0.01)
