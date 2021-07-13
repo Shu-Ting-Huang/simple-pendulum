@@ -6,7 +6,7 @@ from PIL import Image,ImageTk
 
 w = 1250
 h = 600
-time_step=5
+time_step=1
 
 c = 36 #This constant is g/L
 (theta0,omega0) = (pi/4,-0.0) #Initial condition
