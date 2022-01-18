@@ -3,7 +3,7 @@ from math import cos,sin,acos,pi,sqrt
 from scipy.integrate import quad,odeint
 from numpy import linspace
 root = Tk()
-root.title('Simple Pendulum')
+root.title('Compound system')
 #root.geometry("800x1080")
 root.state('zoomed') #maximize the window
 
